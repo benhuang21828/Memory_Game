@@ -25,7 +25,8 @@ Game completes when all pairs have been found
 
 <b>Part 2:</b>
 Integrate a 2 player turn based system with a “computer” player.
-Requirements:
+
+<b>Requirements:</b>
 The game can distinguish between the turns of two players
 The game keeps a count of the matched pairs for each player
 A single user’s turn may continue if they successfully match a pair
