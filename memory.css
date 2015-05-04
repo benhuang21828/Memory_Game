@@ -1,0 +1,49 @@
+body{
+	background-color: rgb(79, 186, 61);
+}
+
+div#memory_board{
+      background: #FFA500 repeat-x scroll left top;
+      float:left;
+      min-height:100px;
+      min-width:260px;
+      border-radius: 20px;
+}
+div#memory_board > div{
+	background: #40E0D0 no-repeat;
+	border:red 3px solid;
+	width:100px;
+	height:100px;
+	float:left;
+	margin:10px;
+	padding:20px;
+	font-size:64px;
+	cursor:pointer;
+	text-align:center;
+	border-radius: 20px
+}
+ #reset{
+  height: 100px;
+  width: 200px;
+  background-color: rgb(68, 130, 182);
+  border-radius: 25px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 20px;
+  position: relative;
+}
+
+#reset p{
+   margin: 0;
+   position: absolute;              
+   top: 50%;                        
+   transform: translate(0, -50%);
+   margin-left: 30%;
+  font-family: sans-serif;
+  font-size: xx-large;
+
+}
+
+#reset:active { 
+    background-color: rgb(36, 96, 147);
+}
