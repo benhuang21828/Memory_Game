@@ -8,6 +8,12 @@ var cards_flipped = 0;
 var player_one = 0;
 var player_two = 0;
 
+// keep track and display score
+function score(){
+	document.getElementById('playerOne').innerHTML = 'Player One: ' + player_one;
+	document.getElementById('playerTwo').innerHTML = 'Player One: ' + player_two;
+}
+
 //generate the 52 card deck
 function generate(){
 	for(var x = 0; x<=13; x++){
@@ -82,6 +88,7 @@ function computerFlipCard(){
 				second = randCard();
 				player_two += 1;
 				cards_flipped += 2;
+				score();
 				setTimeout(computerAlert(deck[first][0], deck[second][0]), 500);
 		}else{
 			document.getElementById(first.toString()).style.background = 'rgb(36, 96, 147) no-repeat';
@@ -126,6 +133,7 @@ function checkFlippedCard(card,val){
 				cards_flipped += 2;
 				player_one += 1
 				card_values = [];
+				score();
 				
 				if(cards_flipped === deck.length){
 					alert("Won, new game!");
@@ -157,12 +165,18 @@ Array.prototype.shuffle = function(){
 function newBoard(){
 	// create the deck, shuffle it, then add it as a div onto the DOM
 	generate();
+	score();
 	cards_flipped = 0;
 	var output = '';
+
+	player_one = 0;
+	player_two = 0;
+	card_ids = [];
+	cards_flipped = 0;
+	
     deck.shuffle();
 	for(var i = 0; i < deck.length; i++){
 		output += '<div class="tiles" id='+i+' onclick="checkFlippedCard(this,\''+deck[i]+'\')"></div>';
 	}
 	document.getElementById('memory_board').innerHTML = output;
 }
-
