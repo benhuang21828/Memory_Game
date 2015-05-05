@@ -7,6 +7,7 @@ var computer_card_ids = [];
 var cards_flipped = 0;
 var player_one = 0;
 var player_two = 0;
+var computer_cache = [];
 
 // keep track and display score
 function score(){
@@ -16,9 +17,10 @@ function score(){
 
 //generate the 52 card deck
 function generate(){
-	for(var x = 0; x<=13; x++){
+	deck = []
+	for(var x = 1; x<=13; x++){
 		for(var y=0; y<=3; y++){
-			if(x ===0){
+			if(x === 1){
 				deck.push(['A', suit[y]]);
 			}else if(x===11){
 				deck.push(['J', suit[y]]);
@@ -61,10 +63,45 @@ function computerFlipCard(){
 		alert("the computer has chosen " + num1.toString() + " and " + num2.toString())
 	}
 
+	function checkCache(cache, num){
+		in_cache = false;
+		index = 0
+		for(var d=0; d<cache.length; d++){
+
+			console.log('compCache value: ', deck[cache[d]][0]);
+
+			if(deck[num][0]===deck[cache[d]][0]){
+				in_cache = true;
+				index = cache[d];
+				cache.splice(d, 1);
+
+				console.log('checkedCache', index)
+
+				return index;
+				
+			}
+
+		}
+		console.log('checkedCache', num)
+		return num;
+	}
+
 	is_player_term = false
 	//pick two random cards
 	first = randCard();
-	second = randCard();
+	
+
+	card_in_computer_cache = checkCache(computer_cache, first)
+
+	if(card_in_computer_cache===first){
+		second = randCard();
+		computer_cache.push(second);
+	}else{
+		second = card_in_computer_cache;
+	}
+	computer_cache.push(first);
+	
+	console.log('first and second: ', first, second, computer_cache)
 
 	setTimeout(computerAlert(deck[first][0], deck[second][0]), 500);
 
@@ -82,10 +119,33 @@ function computerFlipCard(){
 					newBoard();
 				}
 		if(deck[first][0] === deck[second][0]){
+				computer_cache.remove(first);
+				computer_cache.remove(second);
+
 				card_ids.push(first);
 				card_ids.push(second);
+
+				document.getElementById(first).style.background = 'rgb(79, 186, 61)';
+				document.getElementById(first).innerHTML = deck[first];
+				document.getElementById(second).style.background = 'rgb(79, 186, 61)';
+				document.getElementById(second).innerHTML = deck[second];
+
+
 				first = randCard();
-				second = randCard();
+				
+				
+				card_in_computer_cache = checkCache(computer_cache, first)
+	
+				if(card_in_computer_cache===first){
+					second = randCard();
+					computer_cache.push(second);
+				}else{
+					second = card_in_computer_cache;
+				}
+
+				
+				computer_cache.push(first);
+
 				player_two += 1;
 				cards_flipped += 2;
 				score();
@@ -95,6 +155,7 @@ function computerFlipCard(){
 			document.getElementById(first.toString()).innerHTML = '';
 			document.getElementById(second.toString()).style.background = 'rgb(36, 96, 147) no-repeat';
 			document.getElementById(second.toString()).innerHTML = '';
+
 			is_player_term = true;
 		}
 	}
@@ -161,6 +222,17 @@ Array.prototype.shuffle = function(){
     }
 }
 
+Array.prototype.remove = function() {
+    var what, a = arguments, L = a.length, ax;
+    while (L && this.length) {
+        what = a[--L];
+        while ((ax = this.indexOf(what)) !== -1) {
+            this.splice(ax, 1);
+        }
+    }
+    return this;
+};
+
 //create new game
 function newBoard(){
 	// create the deck, shuffle it, then add it as a div onto the DOM
@@ -173,6 +245,7 @@ function newBoard(){
 	player_two = 0;
 	card_ids = [];
 	cards_flipped = 0;
+	computer_cache = [];
 	
     deck.shuffle();
 	for(var i = 0; i < deck.length; i++){
