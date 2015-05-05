@@ -12,7 +12,7 @@ var computer_cache = [];
 // keep track and display score
 function score(){
 	document.getElementById('playerOne').innerHTML = 'Player One: ' + player_one;
-	document.getElementById('playerTwo').innerHTML = 'Player One: ' + player_two;
+	document.getElementById('playerTwo').innerHTML = 'Player Two: ' + player_two;
 }
 
 //generate the 52 card deck
@@ -143,7 +143,7 @@ function computerFlipCard(){
 					second = card_in_computer_cache;
 				}
 
-				
+
 				computer_cache.push(first);
 
 				player_two += 1;
