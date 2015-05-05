@@ -12,7 +12,7 @@ var computer_cache = [];
 // keep track and display score
 function score(){
 	document.getElementById('playerOne').innerHTML = 'Player One: ' + player_one;
-	document.getElementById('playerTwo').innerHTML = 'Player Two: ' + player_two;
+	document.getElementById('playerTwo').innerHTML = 'Computer: ' + player_two;
 }
 
 //generate the 52 card deck
@@ -68,21 +68,21 @@ function computerFlipCard(){
 		index = 0
 		for(var d=0; d<cache.length; d++){
 
-			console.log('compCache value: ', deck[cache[d]][0]);
+			//console.log('compCache value: ', deck[cache[d]][0]);
 
 			if(deck[num][0]===deck[cache[d]][0]){
 				in_cache = true;
 				index = cache[d];
 				cache.splice(d, 1);
 
-				console.log('checkedCache', index)
+				//console.log('checkedCache', index)
 
 				return index;
 				
 			}
 
 		}
-		console.log('checkedCache', num)
+		//console.log('checkedCache', num)
 		return num;
 	}
 
@@ -101,7 +101,7 @@ function computerFlipCard(){
 	}
 	computer_cache.push(first);
 	
-	console.log('first and second: ', first, second, computer_cache)
+	//console.log('first and second: ', first, second, computer_cache)
 
 	setTimeout(computerAlert(deck[first][0], deck[second][0]), 500);
 
